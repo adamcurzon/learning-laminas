@@ -47,6 +47,9 @@ class CarController extends AbstractActionController
         }
 
         $car->exchangeArray($form->getData());
+
+        $car->setNamePrefixed();
+
         $this->table->saveCar($car);
         return $this->redirect()->toRoute('car');
     }

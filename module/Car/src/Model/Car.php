@@ -19,6 +19,8 @@ class Car implements InputFilterAwareInterface
 
     private $inputFilter;
 
+    const PREFIX = "[CAR]";
+
     public function exchangeArray(array $array): void
     {
         $this->id     = !empty($array['id']) ? $array['id'] : null;
@@ -32,6 +34,11 @@ class Car implements InputFilterAwareInterface
             '%s does not allow injection of an alternate input filter',
             __CLASS__
         ));
+    }
+
+    public function setNamePrefixed()
+    {
+        $this->name = self::PREFIX . " " . $this->name;
     }
 
     public function getInputFilter()
