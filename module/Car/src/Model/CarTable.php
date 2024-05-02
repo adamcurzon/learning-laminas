@@ -3,6 +3,7 @@
 namespace Car\Model;
 
 use RuntimeException;
+use Laminas\Db\ResultSet\ResultSet;
 use Laminas\Db\TableGateway\TableGatewayInterface;
 
 class CarTable
@@ -14,12 +15,12 @@ class CarTable
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll()
+    public function fetchAll(): ResultSet
     {
         return $this->tableGateway->select();
     }
 
-    public function getCar($id)
+    public function getCar($id): Car
     {
         $id = (int) $id;
 
@@ -36,7 +37,7 @@ class CarTable
         return $row;
     }
 
-    public function saveCar(Car $car)
+    public function saveCar(Car $car): void
     {
         $data = [
             'name' => $car->name,
@@ -62,7 +63,7 @@ class CarTable
         $this->tableGateway->update($data, ['id' => $id]);
     }
 
-    public function deleteCar($id)
+    public function deleteCar($id): void
     {
         $this->tableGateway->delete(['id' => (int) $id]);
     }
