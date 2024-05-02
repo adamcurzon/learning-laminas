@@ -1,0 +1,42 @@
+<?php
+
+$title = 'Edit cars';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+$car = $form->get('name');
+$car->setAttribute('class', 'form-control');
+$car->setAttribute('placeholder', 'Car name');
+
+$model = $form->get('model');
+$model->setAttribute('class', 'form-control');
+$model->setAttribute('placeholder', 'Model');
+
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('car', [
+    'action' => 'edit',
+    'id'     => $id,
+]));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+<div class="form-group">
+    <?= $this->formLabel($car) ?>
+    <?= $this->formElement($car) ?>
+    <?= $this->formElementErrors()->render($car, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group">
+    <?= $this->formLabel($model) ?>
+    <?= $this->formElement($model) ?>
+    <?= $this->formElementErrors()->render($model, ['class' => 'help-block']) ?>
+</div>
+
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($form->get('id'));
+echo $this->form()->closeTag();
