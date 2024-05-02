@@ -2,10 +2,11 @@
 
 namespace Car;
 
-use Laminas\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
 use Car\Model\CarTableFactory;
 use Laminas\Router\Http\Segment;
+use Car\Listener\CarCreatedListener;
 use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
 
 return [
     'controllers' => [
@@ -43,6 +44,11 @@ return [
     'service_manager' => [
         'factories' => [
             Model\CarTable::class => CarTableFactory::class,
+            CarCreatedListener::class => InvokableFactory::class,
         ],
+    ],
+
+    'listeners' => [
+        CarCreatedListener::class,
     ],
 ];
