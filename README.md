@@ -6,7 +6,7 @@ This is a quick CRUD app using laminas for a car dealership.
 
 [📚 Laminas Docs](https://docs.laminas.dev/tutorials/getting-started/overview/)
 
-# Setup
+## Setup
 
 1. Install Dependencies
 
@@ -19,3 +19,8 @@ composer install
 ```
 composer serve
 ```
+
+## 🤔 Interesting Quirks
+
+- The profiler is abandoned
+- Required newer version of PSR logger?
