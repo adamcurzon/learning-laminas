@@ -7,6 +7,7 @@ use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use Car\Form\CarForm;
 use Car\Model\Car;
+use Car\Event\CarCreatedEvent;
 
 class CarController extends AbstractActionController
 {
@@ -51,6 +52,9 @@ class CarController extends AbstractActionController
         $car->setNamePrefixed();
 
         $this->table->saveCar($car);
+
+        $this->getEventManager()->triggerEvent(new CarCreatedEvent($car));
+
         return $this->redirect()->toRoute('car');
     }
 
