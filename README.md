@@ -1,6 +1,10 @@
-# Learning Laminas
+# Learning Laminas 📝
 
 This is a quick CRUD app using laminas for a car dealership.
+
+<img width="300" src="https://github.com/adamcurzon/learning-laminas/blob/main/docs/preview.png">
+
+[📚 Laminas Docs](https://docs.laminas.dev/tutorials/getting-started/overview/)
 
 # Setup
 
