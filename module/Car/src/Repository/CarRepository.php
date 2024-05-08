@@ -7,6 +7,8 @@ use Car\Contract\CarRepositoryContract;
 
 class CarRepository implements CarRepositoryContract
 {
+    const CACHE_KEY_PREFIX = 'car_';
+
     public function __construct(private StorageInterface $cache, private CarTable $carTable)
     {
     }
@@ -19,7 +21,7 @@ class CarRepository implements CarRepositoryContract
 
     public function get(int $id): Car
     {
-        $cacheKey = $this->cacheKeyPrefix . $id;
+        $cacheKey = self::CACHE_KEY_PREFIX . $id;
 
         if ($this->cache->hasItem($cacheKey)) {
             return $this->cache->getItem($cacheKey);
