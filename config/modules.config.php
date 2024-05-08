@@ -6,6 +6,7 @@
  * This should be an array of module namespaces used in the application.
  */
 return [
+    'Laminas\Cache',
     'Laminas\Mvc\Plugin\FilePrg',
     'Laminas\Mvc\Plugin\FlashMessenger',
     'Laminas\Mvc\Plugin\Identity',
@@ -25,6 +26,7 @@ return [
     'Laminas\Validator',
     'Laminas\DeveloperTools',
     'Laminas\Diactoros',
+    'Laminas\Cache\Storage\Adapter\Redis',
     'Application',
     'Car'
 ];
