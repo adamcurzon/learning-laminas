@@ -7,7 +7,11 @@ use Car\Model\Car;
 interface CarRepositoryContract
 {
     /* @return Car[] */
-    public function getAll(): array;
+    public function fetchAll();
 
-    public function get(int $id): Car;
+    public function getCar(int $id): Car;
+
+    public function saveCar(Car $car): void;
+
+    public function deleteCar(int $id): void;
 }
