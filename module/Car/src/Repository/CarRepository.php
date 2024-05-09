@@ -43,7 +43,7 @@ class CarRepository implements CarRepositoryContract
 
         $this->cache->setItem($cacheKey, serialize($car));
 
-        $this->logger->info("Car cache set", $cacheKey);
+        $this->logger->info("Car cache set", [$cacheKey]);
 
         return $car;
     }
@@ -55,7 +55,7 @@ class CarRepository implements CarRepositoryContract
         try {
             if ($this->cache->hasItem($cacheKey)) {
                 $this->cache->removeItem($cacheKey);
-                $this->logger->info("Car cache removed", $cacheKey);
+                $this->logger->info("Car cache removed", [$cacheKey]);
             }
         } catch (\Exception $e) {
             $this->logger->error("Cache couldn't remove item", [$cacheKey, $e->getMessage()]);
