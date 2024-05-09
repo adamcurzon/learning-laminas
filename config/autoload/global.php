@@ -17,4 +17,14 @@ return [
         'driver' => 'Pdo',
         'dsn'    => sprintf('sqlite:%s/data/learning-laminas.db', realpath(getcwd())),
     ],
+    'redis-cache' => [
+        'adapter' => 'redis',
+        'options' => [
+            'server' => [
+                'host' => '127.0.0.1',
+                'port' => 6379,
+            ],
+            'ttl' => 3600,
+        ],
+    ]
 ];
