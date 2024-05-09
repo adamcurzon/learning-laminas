@@ -1,0 +1,5 @@
+[09/05/2024 11:11:30] main.INFO: Cache couldn't get item ["car_2","Connection refused"] []
+[09/05/2024 11:11:33] main.INFO: Cache couldn't get item ["car_345345345345","Connection refused"] []
+[09/05/2024 11:11:36] main.INFO: Cache couldn't get item ["car_2","Connection refused"] []
+[09/05/2024 11:13:46] main.INFO: Car cache set {"id":2,"name":"BMW 1 Series","model":"M Sports"} []
+[09/05/2024 11:13:48] main.INFO: Car cache removed {"id":2,"name":"BMW 1 Series345345","model":"M Sports"} []
