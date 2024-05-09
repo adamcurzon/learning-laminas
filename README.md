@@ -20,6 +20,11 @@ composer install
 composer serve
 ```
 
+3. Run tests
+```
+composer test
+```
+
 ## 🤔 Interesting Quirks
 - Make sure `composer development-enable` is enables...
 - The profiler is abandoned
