@@ -21,6 +21,6 @@ composer serve
 ```
 
 ## 🤔 Interesting Quirks
-
+- Make sure `composer development-enable` is enables...
 - The profiler is abandoned
 - Required newer version of PSR logger?
