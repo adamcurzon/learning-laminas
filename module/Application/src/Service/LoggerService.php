@@ -25,4 +25,9 @@ class LoggerService
     {
         $this->logger->info($message, $context);
     }
+
+    public function error($message, $context = [])
+    {
+        $this->logger->info($message, $context);
+    }
 }
