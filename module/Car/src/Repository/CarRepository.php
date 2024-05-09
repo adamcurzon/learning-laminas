@@ -8,6 +8,7 @@ use Car\Model\CarTable;
 use Car\Contract\CarRepositoryContract;
 use Laminas\Cache\Storage\StorageInterface;
 use Laminas\Cache\Service\StorageAdapterFactoryInterface;
+use Laminas\ServiceManager\ServiceManager;
 
 class CarRepository implements CarRepositoryContract
 {
@@ -15,19 +16,9 @@ class CarRepository implements CarRepositoryContract
 
     private StorageInterface $cache;
 
-    public function __construct(private CarTable $carTable, private StorageAdapterFactoryInterface $storageFactory, private LoggerService $logger)
+    public function __construct(private CarTable $carTable, private StorageAdapterFactoryInterface $storageFactory, private LoggerService $logger, private ServiceManager $serviceManager)
     {
-        // TODO: Refactor this to env variables
-        $this->cache = $storageFactory->createFromArrayConfiguration([
-            'adapter' => 'redis',
-            'options' => [
-                'server' => [
-                    'host' => '127.0.0.1',
-                    'port' => 6379,
-                ],
-                'ttl' => 3600,
-            ],
-        ]);
+        $this->cache = $storageFactory->createFromArrayConfiguration($serviceManager->get('config')['redis-cache']);
     }
 
     public function fetchAll()
@@ -39,13 +30,19 @@ class CarRepository implements CarRepositoryContract
     {
         $cacheKey = self::CACHE_KEY_PREFIX . $id;
 
-        if ($this->cache->hasItem($cacheKey)) {
-            return unserialize($this->cache->getItem($cacheKey));
+        try {
+            if ($this->cache->hasItem($cacheKey)) {
+                return unserialize($this->cache->getItem($cacheKey));
+            }
+        } catch (\Exception $e) {
+            $this->logger->error("Cache couldn't get item", [$cacheKey, $e->getMessage()]);
+            return $this->carTable->getCar($id);
         }
 
         $car = $this->carTable->getCar($id);
 
         $this->cache->setItem($cacheKey, serialize($car));
+
         $this->logger->info("Car cache set", $car->getArrayCopy());
 
         return $car;
@@ -55,9 +52,13 @@ class CarRepository implements CarRepositoryContract
     {
         $cacheKey = self::CACHE_KEY_PREFIX . $car->id;
 
-        if ($this->cache->hasItem($cacheKey)) {
-            $this->cache->removeItem($cacheKey);
-            $this->logger->info("Car cache removed", $car->getArrayCopy());
+        try {
+            if ($this->cache->hasItem($cacheKey)) {
+                $this->cache->removeItem($cacheKey);
+                $this->logger->info("Car cache removed", $car->getArrayCopy());
+            }
+        } catch (\Exception $e) {
+            $this->logger->error("Cache couldn't remove item", [$cacheKey, $e->getMessage()]);
         }
 
         $this->carTable->saveCar($car);
@@ -67,9 +68,13 @@ class CarRepository implements CarRepositoryContract
     {
         $cacheKey = self::CACHE_KEY_PREFIX . $id;
 
-        if ($this->cache->hasItem($cacheKey)) {
-            $this->cache->removeItem($cacheKey);
-            $this->logger->info("Car cache removed", $car->getArrayCopy());
+        try {
+            if ($this->cache->hasItem($cacheKey)) {
+                $this->cache->removeItem($cacheKey);
+                $this->logger->info("Car cache removed", $car->getArrayCopy());
+            }
+        } catch (\Exception $e) {
+            $this->logger->error("Cache couldn't remove item", [$cacheKey, $e->getMessage()]);
         }
 
         $this->carTable->deleteCar($id);
