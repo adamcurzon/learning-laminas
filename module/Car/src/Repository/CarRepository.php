@@ -2,6 +2,7 @@
 
 namespace Car\Repository;
 
+use Application\Service\LoggerService;
 use Car\Model\Car;
 use Car\Model\CarTable;
 use Car\Contract\CarRepositoryContract;
@@ -14,7 +15,7 @@ class CarRepository implements CarRepositoryContract
 
     private StorageInterface $cache;
 
-    public function __construct(private CarTable $carTable, private StorageAdapterFactoryInterface $storageFactory)
+    public function __construct(private CarTable $carTable, private StorageAdapterFactoryInterface $storageFactory, private LoggerService $logger)
     {
         // TODO: Refactor this to env variables
         $this->cache = $storageFactory->createFromArrayConfiguration([
@@ -45,6 +46,7 @@ class CarRepository implements CarRepositoryContract
         $car = $this->carTable->getCar($id);
 
         $this->cache->setItem($cacheKey, serialize($car));
+        $this->logger->info("Car cache set", $car->getArrayCopy());
 
         return $car;
     }
@@ -55,6 +57,7 @@ class CarRepository implements CarRepositoryContract
 
         if ($this->cache->hasItem($cacheKey)) {
             $this->cache->removeItem($cacheKey);
+            $this->logger->info("Car cache removed", $car->getArrayCopy());
         }
 
         $this->carTable->saveCar($car);
@@ -66,6 +69,7 @@ class CarRepository implements CarRepositoryContract
 
         if ($this->cache->hasItem($cacheKey)) {
             $this->cache->removeItem($cacheKey);
+            $this->logger->info("Car cache removed", $car->getArrayCopy());
         }
 
         $this->carTable->deleteCar($id);
