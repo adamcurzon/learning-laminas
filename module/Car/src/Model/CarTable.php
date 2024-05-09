@@ -2,11 +2,12 @@
 
 namespace Car\Model;
 
+use Car\Contract\CarRepositoryContract;
 use RuntimeException;
 use Laminas\Db\ResultSet\ResultSet;
 use Laminas\Db\TableGateway\TableGatewayInterface;
 
-class CarTable
+class CarTable implements CarRepositoryContract
 {
     private $tableGateway;
 
