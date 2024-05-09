@@ -5,6 +5,7 @@ namespace Car;
 use Car\Model\CarTableFactory;
 use Laminas\Router\Http\Segment;
 use Car\Listener\CarCreatedListener;
+use Application\Service\LoggerService;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
 
@@ -44,7 +45,9 @@ return [
     'service_manager' => [
         'factories' => [
             Model\CarTable::class => CarTableFactory::class,
-            CarCreatedListener::class => InvokableFactory::class,
+            CarCreatedListener::class => function ($container) {
+                return new CarCreatedListener($container->get(LoggerService::class));
+            }
         ],
     ],
 
