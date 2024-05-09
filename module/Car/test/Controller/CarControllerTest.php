@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace ApplicationTest\Controller;
+namespace CarTest\Controller;
 
 use Laminas\Stdlib\ArrayUtils;
 use Car\Controller\CarController;
-use Application\Controller\IndexController;
 use Laminas\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
-class IndexControllerTest extends AbstractHttpControllerTestCase
+class CarControllerTest extends AbstractHttpControllerTestCase
 {
     const APPLICATION_NAME = "car";
 
@@ -43,11 +42,12 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
     {
         $this->dispatch('/', 'GET');
         $this->assertQuery('body h1');
+        $this->assertResponseStatusCode(200);
     }
 
     public function testInvalidRouteDoesNotCrash(): void
     {
-        $this->dispatch('/invalid/route', 'GET');
+        $this->dispatch('/car/edit/abc', 'GET');
         $this->assertResponseStatusCode(404);
     }
 }
