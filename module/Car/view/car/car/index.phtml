@@ -3,10 +3,12 @@
 $title = 'My cars';
 $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title) ?></h1>
-<p>
-    <a href="<?= $this->url('car', ['action' => 'add']) ?>">Add new car</a>
-</p>
+<header>
+    <h1><?= $this->escapeHtml($title) ?></h1>
+    <p>
+        <a class="action add" href="<?= $this->url('car', ['action' => 'add']) ?>">Add new car</a>
+    </p>
+</header>
 
 <table class="table">
     <tr>
@@ -19,8 +21,8 @@ $this->headTitle($title);
             <td><?= $this->escapeHtml($car->name) ?></td>
             <td><?= $this->escapeHtml($car->model) ?></td>
             <td>
-                <a href="<?= $this->url('car', ['action' => 'edit', 'id' => $car->id]) ?>">Edit</a>
-                <a href="<?= $this->url('car', ['action' => 'delete', 'id' => $car->id]) ?>">Delete</a>
+                <a class="action edit" href="<?= $this->url('car', ['action' => 'edit', 'id' => $car->id]) ?>">Edit</a>
+                <a class="action delete" href="<?= $this->url('car', ['action' => 'delete', 'id' => $car->id]) ?>">Delete</a>
             </td>
         </tr>
     <?php endforeach; ?>

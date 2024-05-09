@@ -1,5 +1,62 @@
 :root {
-    --brand-color: #013755;
+    --brand-color: #0077ee;
+    --red: #e74c3c;
+    --green: #2ecc71;
+    --blue: #3498db;
+    --orange: #e67e22;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.action {
+    display: inline-block;
+    border: 2px solid var(--blue);
+    color: var(--blue) !important;
+    padding: 5px 10px;
+    text-decoration: none !important;
+    border-radius: 5px;
+}
+
+.action:hover {
+    opacity: 0.8;
+}
+
+.action.add {
+    color: var(--green) !important;
+    border-color: var(--green) !important;
+}
+
+.action.edit {
+    color: var(--orange) !important;
+    border-color: var(--orange) !important;
+}
+
+.action.delete {
+    color: var(--red) !important;
+    border-color: var(--red) !important;
+}
+
+td {
+    vertical-align: middle;
+}
+
+h1,
+p {
+    padding: 0px;
+    margin: 0px;
+}
+
+ul.help-block {
+    color: var(--red);
 }
 
 .navbar {

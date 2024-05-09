@@ -3,7 +3,12 @@
 $title = 'Edit cars';
 $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title) ?></h1>
+<header>
+    <h1><?= $this->escapeHtml($title) ?></h1>
+    <a href="<?= $this->url('car', ['action' => 'index']) ?>" class="action">
+        Back to All Cars
+    </a>
+</header>
 <?php
 $car = $form->get('name');
 $car->setAttribute('class', 'form-control');
@@ -36,6 +41,7 @@ echo $this->form()->openTag($form);
     <?= $this->formElementErrors()->render($model, ['class' => 'help-block']) ?>
 </div>
 
+<br />
 <?php
 echo $this->formSubmit($submit);
 echo $this->formHidden($form->get('id'));

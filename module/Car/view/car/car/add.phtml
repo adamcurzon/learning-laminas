@@ -2,7 +2,10 @@
 $title = 'Add new car';
 $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title) ?></h1>
+<header>
+    <h1><?= $this->escapeHtml($title) ?></h1>
+    <a href="<?= $this->url('car', ['action' => 'index']) ?>" class="action">Back to All Cars</a>
+</header>
 <?php
 // This provides a default CSS class and placeholder text for the title element:
 $car = $form->get('name');
@@ -37,7 +40,7 @@ echo $this->form()->openTag($form);
     <?= $this->formElement($model) ?>
     <?= $this->formElementErrors()->render($model, ['class' => 'help-block']) ?>
 </div>
-
+<br />
 <?php
 echo $this->formSubmit($submit);
 echo $this->formHidden($form->get('id'));
