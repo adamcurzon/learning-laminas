@@ -8,22 +8,18 @@ use Laminas\View\Model\ViewModel;
 use Car\Form\CarForm;
 use Car\Model\Car;
 use Car\Event\CarCreatedEvent;
+use Car\Repository\CarRepository;
 
 class CarController extends AbstractActionController
 {
-    // Add this property:
-    private $table;
-
-    // Add this constructor:
-    public function __construct(CarTable $table)
+    public function __construct(private CarRepository $carRepository)
     {
-        $this->table = $table;
     }
 
     public function indexAction()
     {
         return new ViewModel([
-            'cars' => $this->table->fetchAll(),
+            'cars' => $this->carRepository->fetchAll(),
         ]);
     }
 
@@ -51,7 +47,7 @@ class CarController extends AbstractActionController
 
         $car->setNamePrefixed();
 
-        $this->table->saveCar($car);
+        $this->carRepository->saveCar($car);
 
         $this->getEventManager()->triggerEvent(new CarCreatedEvent($car));
 
@@ -67,7 +63,7 @@ class CarController extends AbstractActionController
         }
 
         try {
-            $car = $this->table->getCar($id);
+            $car = $this->carRepository->getCar($id);
         } catch (\Exception $e) {
             return $this->redirect()->toRoute('car', ['action' => 'index']);
         }
@@ -92,7 +88,7 @@ class CarController extends AbstractActionController
         }
 
         try {
-            $this->table->saveCar($car);
+            $this->carRepository->saveCar($car);
         } catch (\Exception $e) {
         }
 
@@ -114,7 +110,7 @@ class CarController extends AbstractActionController
 
             if ($del == 'Yes') {
                 $id = (int) $request->getPost('id');
-                $this->table->deleteCar($id);
+                $this->carRepository->deleteCar($id);
             }
 
             // Redirect to list of albums
@@ -123,7 +119,7 @@ class CarController extends AbstractActionController
 
         return [
             'id'    => $id,
-            'car' => $this->table->getCar($id),
+            'car' => $this->carRepository->getCar($id),
         ];
     }
 }
