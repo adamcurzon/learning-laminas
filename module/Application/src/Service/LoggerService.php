@@ -28,6 +28,6 @@ class LoggerService
 
     public function error($message, $context = [])
     {
-        $this->logger->info($message, $context);
+        $this->logger->error($message, $context);
     }
 }
